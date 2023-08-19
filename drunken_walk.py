@@ -25,8 +25,10 @@ H=0
 # setting initial location at A
 location="A"
 
-for i in range(10000):#to repeat the following 10000 times
+for i in range(1000000):#to repeat the following 1000000 times
     
+    
+
     # if drunkard lands on  A, add 1 to A and randomly go to either B or C
     if location=="A":
         A=A+1
@@ -38,7 +40,7 @@ for i in range(10000):#to repeat the following 10000 times
     # if drunkard lands on B, add 1 to B and randomly go to either D or E
     elif location=="B":
         B=B+1
-        if random.randint(0,1)==1:
+        if random.randint(0,1)==0:
             location="D"
         else:
             location="E"
@@ -66,6 +68,7 @@ for i in range(10000):#to repeat the following 10000 times
             location="H"
         else:
             location="A"
+    
     # if drunkard lands on F, add 1 to F and go to A
     elif location=="F":
         F=F+1
@@ -74,10 +77,12 @@ for i in range(10000):#to repeat the following 10000 times
     # if drunkard lands on G, add 1 to G and go to A
     elif location=="G":
         G=G+1
-        location="A"
+        location="A"   
 
     # if drunkard lands on H, add 1 to H and go to A
     elif location=="H":
         H=H+1
-        location=="A"
+        location="A"
+
+
 print(A, B, C, D, E, F, G, H)
