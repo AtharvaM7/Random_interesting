@@ -1,0 +1,16 @@
+If we want to get to the median by cutting down list in parts, the maximum list we can cut down is 50%.
+
+Consider we have choose an element on the left of the median, then we can cut down the list that comes before the selected element. If the selected element is 1st then the number of elements we cut will be zero. If the selected element turns out to be median itself, the number of elements we cut will be 50%. 
+
+Similarly, if the selected number lies on the right of the median then we can cut down the list that comes after the selected element. If the selected element is last then the number of elements we cut will be zero. If the selected element turns out to be median itself, the number of elements we cut will be 50%.
+
+Hence when we pick out numbers from the list at RANDOM, for a large number experiments, the number of elements we cut down converges to 25% of the list on an average.
+
+This is because,
+P(Cutting down 0% of the list) = P(Cutting down 1% of the list) = P(Cutting down 2% of the list) = ... = P(Cutting down 50% of the list).
+
+This is ensured due to randomness.
+
+Now that we have established that 25% of the list is cut down on an average, we can calculate that on an average, we can calculate that we will have to cut the list 4 times to reach the median. We can calculate that using 3/4+3/4^2+3/4^3+3/4^.... = 4.
+
+And to cut the list once, we have to go through the list 2 times, once to pick an element and once to find where the selected element lies. Hence, we will have to go through the list 8 times to reach the median.
