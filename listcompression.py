@@ -3,36 +3,6 @@ space filling curve.'''
 import numpy as np
 
 
-# write a function that takes a list and writes the consecutive repeated
-# elements as a tuple of the form (element, number of repetitions)
-
-def compress_list(l):
-    '''This function takes a list and writes the consecutive repeated elements
-    as a tuple of the form (element, number of repetitions).'''
-    # initialize variables
-    compressed_list = []
-    count = 1
-    # loop through the list
-    for i in range(len(l)):
-        # if the element is the last element in the list
-        if i == len(l) - 1:
-            # append the element and the number of repetitions to the list
-            compressed_list.append((l[i], count))
-        # if the element is not the last element in the list
-        else:
-            # if the element is the same as the next element
-            if l[i] == l[i + 1]:
-                # increment the count
-                count += 1
-            # if the element is not the same as the next element
-            else:
-                # append the element and the number of repetitions to the list
-                compressed_list.append((l[i], count))
-                # reset the count
-                count = 1
-    # return the compressed list
-    return compressed_list
-
 # write a function that opens an image, converts it into greyscale, makes it a
 # square and then converts it into a numpy array
 
@@ -48,10 +18,14 @@ def open_image(filename):
     image = image.convert('L')
     # make the image a square
     image = image.resize((256, 256))
+    # save the modified image as a png file
+    image.save('important_af.png')
     # convert the image into a numpy array
     image = np.array(image)
     # return the image
     return image
+#test the open_image function
+open_image('important.png')
 
 #__________________________________________________________________________________________________________________________________________________________________________________________________________#_
 
@@ -154,10 +128,14 @@ def fig(n):
         for i in range(p):
             moves.append(temp4[i])
 
+
+        
     return moves
+
 
 def SFC(n):
     return fig_co(fig(n))
+
 #__________________________________________________________________________________________________________________________________________________________________________________________________________#
 
 
@@ -180,17 +158,62 @@ def parse_array(image):
     return parsed_array
 
 
+# write a function that takes a list and writes the consecutive repeated
+# elements as a tuple of the form (element, number of repetitions)
+
+def compress_list(l):
+    '''This function takes a list and writes the consecutive repeated elements
+    as a tuple of the form (element, number of repetitions).'''
+    # initialize variables
+    compressed_list = []
+    count = 1
+    # go through all the elements of the list
+    # if the element is not repeated then just append it to the list
+    # else append the element and the number of repetitions as a tuple
+    for i in range(len(l)):
+        # if the element is the last element of the list then append it
+        if i == len(l)-1:
+            # if the element is not repeated then append it
+            compressed_list.append((l[i], count))
+        # if the element is not repeated then append it
+        elif l[i] != l[i+1] and count == 1:
+            compressed_list.append(l[i])
+        # if the element is repeated then append it and the number of repetitions
+        elif l[i] != l[i+1] and count != 1:
+            compressed_list.append((l[i], count))
+            count = 1
+        # if the element is repeated then increase the count
+        elif l[i] == l[i+1]:
+            count += 1
+    # return the compressed list
+    return compressed_list
+
+
 def main():
     '''This is the main function.'''
-    # take image path input from the user
-    image_path = input('Enter the path of the image: ')
-    # open the image
-    image = open_image(image_path)
-    # parse the array
+    # open the image, convert it to greyscale, make it a square and convert it
+    # to a numpy array
+    image = open_image('important.png')
+    # parse the numpy array in the order of the space filling curve and create
+    # a list of the pixel values
     parsed_array = parse_array(image)
     # compress the list
     compressed_list = compress_list(parsed_array)
-    # print the compressed list
-    print(compressed_list)
+    # save the compressed list as a text file. Make sure that two elements are
+    # separated by a space. If the element is a tuple then the element should
+    # be of the form number,number
+    
+    # open a file
+    f = open('compressed_list.txt', 'w')
+    # go through all the elements of the list
+    for i in range(len(compressed_list)):
+        # if the element is a tuple then write it in the form number,number
+        if type(compressed_list[i]) == tuple:
+            f.write(str(compressed_list[i][0]) + ',' + str(compressed_list[i][1]) + ' ')
+        # else write the element as it is
+        else:
+            f.write(str(compressed_list[i]) + ' ')
+    # close the file
+    f.close()
 
 main()
