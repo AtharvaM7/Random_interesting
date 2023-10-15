@@ -18,14 +18,10 @@ def open_image(filename):
     image = image.convert('L')
     # make the image a square
     image = image.resize((256, 256))
-    # save the modified image as a png file
-    image.save('important_af.png')
     # convert the image into a numpy array
     image = np.array(image)
     # return the image
     return image
-#test the open_image function
-open_image('important.png')
 
 #__________________________________________________________________________________________________________________________________________________________________________________________________________#_
 
@@ -193,7 +189,7 @@ def main():
     '''This is the main function.'''
     # open the image, convert it to greyscale, make it a square and convert it
     # to a numpy array
-    image = open_image('important.png')
+    image = open_image('binarytestimage.jpeg')
     # parse the numpy array in the order of the space filling curve and create
     # a list of the pixel values
     parsed_array = parse_array(image)
@@ -202,7 +198,6 @@ def main():
     # save the compressed list as a text file. Make sure that two elements are
     # separated by a space. If the element is a tuple then the element should
     # be of the form number,number
-    
     # open a file
     f = open('compressed_list.txt', 'w')
     # go through all the elements of the list
@@ -213,7 +208,7 @@ def main():
         # else write the element as it is
         else:
             f.write(str(compressed_list[i]) + ' ')
-    # close the file
+     close the file
     f.close()
 
 main()
