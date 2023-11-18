@@ -37,9 +37,10 @@ def invest():
     shares_C = []
 
     # S invests 20% of his balance in A, 30% in B, 50% in C.
-    x = 0.2 + random.random() * 0.01
-    y = 0.3 + random.random() * 0.01
-    z = 0.5 + random.random() * 0.01
+    m = np.random.dirichlet(np.ones(3),size=1) #
+    x = 0.2 + m[0][0] * 0.01
+    y = 0.3 + m[0][1] * 0.01
+    z = 0.5 + m[0][2] * 0.01
     total_money_A += x * balance_S
     total_money_B += y * balance_S
     total_money_C += z * balance_S
