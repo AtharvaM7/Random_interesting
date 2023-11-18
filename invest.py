@@ -1,9 +1,11 @@
 import random
 import numpy as np, numpy.random
+import matplotlib.pyplot as plt
 
 """
 Create three companies A, B, C and store the total money of each company.
 """
+# Initial total money of A, B, C is 0.
 total_money_A = 0
 total_money_B = 0
 total_money_C = 0
@@ -11,6 +13,7 @@ total_money_C = 0
 """
 Create variables to store the bank balance of 3 investors S, M, D.
 """
+# Initial bank balance of S, M, D is 100000.
 balance_S = 100000
 balance_M = 100000
 balance_D = 100000
@@ -37,8 +40,10 @@ def invest():
     total_money_A += 0.2 * balance_S
     total_money_B += 0.3 * balance_S
     total_money_C += 0.5 * balance_S
+
     # M invests all the money in random percentage.
-    l = np.random.dirichlet(np.ones(3),size=1)
+    # Take 3 random numbers which add to 1.
+    l = np.random.dirichlet(np.ones(3),size=1) #
     p = l[0][0]
     q = l[0][1]
     r = l[0][2]
@@ -52,14 +57,17 @@ def invest():
     total_money_C += 0.3334 * balance_D
 
     # Calculate the number of shares owned by each investor in each company.
+    # Append the shares of A to the list.
     shares_A.append(0.2 * balance_S / total_money_A)
     shares_A.append(p * balance_M / total_money_A)
     shares_A.append(0.3333 * balance_D / total_money_A)
 
+    # Append the shares of B to the list.
     shares_B.append(0.3 * balance_S / total_money_B)
     shares_B.append(q * balance_M / total_money_B)
     shares_B.append(0.3333 * balance_D / total_money_B)
 
+    # Append the shares of C to the list.
     shares_C.append(0.5 * balance_S / total_money_C)
     shares_C.append(r * balance_M / total_money_C)
     shares_C.append(0.3334 * balance_D / total_money_C)
@@ -74,15 +82,18 @@ def invest():
 def simulate():
     """This function simulates each round.
     """
+    # Declare global variables.
     global total_money_A
     global total_money_B
     global total_money_C
     global balance_S
     global balance_M
     global balance_D
+
     # Choose a company A, B, C such that probability of A is 0.2, B is 0.3, C is 0.5.
     winner = random.choice(['A', 'B', 'C'])
     
+    # Invest the money of the investors in each company.
     shares_A, shares_B, shares_C = invest()
 
     # Return the money to the investors.
@@ -107,13 +118,36 @@ def simulate():
 def main():
     """This function simulates 1000 rounds.
     """
-    for i in range(10000):
-        simulate()
+    # Simulate 1000 rounds and plot the variation in the bank balance of S, M,
+    # D using matplotlib.
+    # Create a list to store the bank balance of S, M, D after each round.
+    global balance_S
+    global balance_M
+    global balance_D
+    list_S = []
+    list_M = []
+    list_D = []
 
-    print("Balance of S: ", balance_S)
-    print("Balance of M: ", balance_M)
-    print("Balance of D: ", balance_D)
+    for i in range(1000):
+        simulate()
+        list_S.append(balance_S)
+        list_M.append(balance_M)
+        list_D.append(balance_D)
+
+    # Plot the variation in the bank balance of S, M, D using matplotlib.
+    plt.plot(list_S, label='S')
+    plt.plot(list_M, label='M')
+    plt.plot(list_D, label='D')
+    plt.xlabel('Number of rounds')
+    plt.ylabel('Bank balance')
+    plt.legend()
+    plt.show()
+    # Print the final bank balance of S, M, D.
+    print("Final bank balance of S: ", balance_S)
+    print("Final bank balance of M: ", balance_M)
+    print("Final bank balance of D: ", balance_D)
 
 if __name__ == '__main__':
     main()
+
 
