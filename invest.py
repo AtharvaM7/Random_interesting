@@ -60,6 +60,8 @@ def invest():
     # x = number of times A has won till now.
     # y = number of times B has won till now.
     # z = number of times C has won till now.
+    # This is done to ensure that S invests in the companies based on the past
+    # data.
     x = winners.count('A')/len(winners)
     y = winners.count('B')/len(winners)
     z = winners.count('C')/len(winners)
