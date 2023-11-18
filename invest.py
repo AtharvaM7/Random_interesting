@@ -18,6 +18,27 @@ balance_S = 100000
 balance_M = 100000
 balance_D = 100000
 
+"""
+Create a list of winners till the current round.
+"""
+winners = []
+
+def winner():
+    """
+    This function gives the winner of each round.
+    """
+    # Choose a random number between 0 and 1. If the number is between 0 and 0.2,
+    # A is chosen. If the number is between 0.2 and 0.5, B is chosen. If the number
+    # is between 0.5 and 1, C is chosen.
+    x = random.random()
+    if x < 0.2:
+        winner = 'A'
+    elif x < 0.5:
+        winner = 'B'
+    else:
+        winner = 'C'
+    return winner
+
 
 # Create a function which invests the money of the investors 
 # in each company A, B, C. The function returns the number of shares owned by
@@ -36,11 +57,13 @@ def invest():
     shares_B = []
     shares_C = []
 
-    # S invests 20% of his balance in A, 30% in B, 50% in C.
-    m = np.random.dirichlet(np.ones(3),size=1) #
-    x = 0.2 + m[0][0] * 0.01
-    y = 0.3 + m[0][1] * 0.01
-    z = 0.5 + m[0][2] * 0.01
+    # x = number of times A has won till now.
+    # y = number of times B has won till now.
+    # z = number of times C has won till now.
+    x = winners.count('A')/len(winners)
+    y = winners.count('B')/len(winners)
+    z = winners.count('C')/len(winners)
+
     total_money_A += x * balance_S
     total_money_B += y * balance_S
     total_money_C += z * balance_S
@@ -83,7 +106,7 @@ def invest():
 
     return shares_A, shares_B, shares_C
 
-def simulate():
+def simulate(winner):
     """This function simulates each round.
     """
     # Declare global variables.
@@ -94,18 +117,6 @@ def simulate():
     global balance_M
     global balance_D
 
-    # Choose a company A, B, C such that probability of A is 0.2, B is 0.3, C is 0.5.
-    # Take a random number between 0 and 1. If the number is between 0 and 0.2,
-    # A is chosen. If the number is between 0.2 and 0.5, B is chosen. If the number
-    # is between 0.5 and 1, C is chosen.
-    x = random.random()
-    if x < 0.2:
-        winner = 'A'
-    elif x < 0.5:
-        winner = 'B'
-    else:
-        winner = 'C'
-    
     # Invest the money of the investors in each company.
     shares_A, shares_B, shares_C = invest()
 
@@ -137,12 +148,18 @@ def main():
     global balance_S
     global balance_M
     global balance_D
+    global winners
     list_S = []
     list_M = []
     list_D = []
 
     for i in range(1000):
-        simulate()
+        win = winner()
+        winners.append(win)
+        simulate(win)
+        print(len(winners))
+
+        # Append the bank balance of S, M, D to the list.
         list_S.append(balance_S)
         list_M.append(balance_M)
         list_D.append(balance_D)
@@ -159,6 +176,7 @@ def main():
     print("Final bank balance of S: ", balance_S)
     print("Final bank balance of M: ", balance_M)
     print("Final bank balance of D: ", balance_D)
+
 
 if __name__ == '__main__':
     main()
