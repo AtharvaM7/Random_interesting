@@ -20,8 +20,10 @@ balance_D = 100000
 
 """
 Create a list of winners till the current round.
+Add A, B, C in the list already so that S starts by investing equally in the
+three companies.
 """
-winners = ['A']
+winners = ['A','B','C']
 
 def winner():
     """
@@ -157,8 +159,8 @@ def main():
 
     for i in range(1000):
         win = winner()
-        winners.append(win)
         simulate(win)
+        winners.append(win)
 
         # Append the bank balance of S, M, D to the list.
         list_S.append(balance_S)
