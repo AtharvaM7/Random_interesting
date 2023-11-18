@@ -21,7 +21,7 @@ balance_D = 100000
 """
 Create a list of winners till the current round.
 """
-winners = []
+winners = ['A']
 
 def winner():
     """
@@ -157,7 +157,6 @@ def main():
         win = winner()
         winners.append(win)
         simulate(win)
-        print(len(winners))
 
         # Append the bank balance of S, M, D to the list.
         list_S.append(balance_S)
