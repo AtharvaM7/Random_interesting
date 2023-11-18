@@ -37,9 +37,12 @@ def invest():
     shares_C = []
 
     # S invests 20% of his balance in A, 30% in B, 50% in C.
-    total_money_A += 0.2 * balance_S
-    total_money_B += 0.3 * balance_S
-    total_money_C += 0.5 * balance_S
+    x = 0.2 + random.random() * 0.01
+    y = 0.3 + random.random() * 0.01
+    z = 0.5 + random.random() * 0.01
+    total_money_A += x * balance_S
+    total_money_B += y * balance_S
+    total_money_C += z * balance_S
 
     # M invests all the money in random percentage.
     # Take 3 random numbers which add to 1.
@@ -58,17 +61,17 @@ def invest():
 
     # Calculate the number of shares owned by each investor in each company.
     # Append the shares of A to the list.
-    shares_A.append(0.2 * balance_S / total_money_A)
+    shares_A.append(x * balance_S / total_money_A)
     shares_A.append(p * balance_M / total_money_A)
     shares_A.append(0.3333 * balance_D / total_money_A)
 
     # Append the shares of B to the list.
-    shares_B.append(0.3 * balance_S / total_money_B)
+    shares_B.append(y * balance_S / total_money_B)
     shares_B.append(q * balance_M / total_money_B)
     shares_B.append(0.3333 * balance_D / total_money_B)
 
     # Append the shares of C to the list.
-    shares_C.append(0.5 * balance_S / total_money_C)
+    shares_C.append(z * balance_S / total_money_C)
     shares_C.append(r * balance_M / total_money_C)
     shares_C.append(0.3334 * balance_D / total_money_C)
 
