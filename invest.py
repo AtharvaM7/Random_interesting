@@ -95,7 +95,16 @@ def simulate():
     global balance_D
 
     # Choose a company A, B, C such that probability of A is 0.2, B is 0.3, C is 0.5.
-    winner = random.choice(['A', 'B', 'C'])
+    # Take a random number between 0 and 1. If the number is between 0 and 0.2,
+    # A is chosen. If the number is between 0.2 and 0.5, B is chosen. If the number
+    # is between 0.5 and 1, C is chosen.
+    x = random.random()
+    if x < 0.2:
+        winner = 'A'
+    elif x < 0.5:
+        winner = 'B'
+    else:
+        winner = 'C'
     
     # Invest the money of the investors in each company.
     shares_A, shares_B, shares_C = invest()
