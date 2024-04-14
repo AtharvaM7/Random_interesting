@@ -84,5 +84,6 @@ for i in range(1000000):#to repeat the following 1000000 times
         H=H+1
         location="A"
 
+:
 
-print(A, B, C, D, E, F, G, H)
+

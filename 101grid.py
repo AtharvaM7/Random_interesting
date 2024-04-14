@@ -62,11 +62,12 @@ def least_distance(darts):
 
 def main():
     observations = []
-    for i in range(1000):
+    for i in range(10000000):
         n = 101
         k = 20
         darts = throw_darts(n, k)
         observations.append(least_distance(darts))
+    print(numpy.mean(observations))
    
 
 
